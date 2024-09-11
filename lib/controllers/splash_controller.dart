@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:notes/routes.dart';
-import 'package:notes/main.dart';
 
 class SplashController extends GetxController {
   @override

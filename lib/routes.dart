@@ -1,10 +1,9 @@
 // lib/routes.dart
 
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:get/get_navigation/src/routes/transitions_type.dart';
+
 import 'package:notes/widgets/splash_screen.dart';
-import 'package:notes/main.dart';
-import 'package:notes/controllers/splash_controller.dart';
+import 'package:notes/views/index.dart';
 
 
 class Routes {
