@@ -57,8 +57,31 @@ class AuthController extends GetxController {
   }
 
   // Logout user
-  Future<void> logout() async {
-    await auth.signOut();
+  Future<void> logout(BuildContext context) async {
+    try {
+      await auth.signOut();
 
+      // After signing out, navigate to the login or welcome screen
+      context.go('/home'); // Replace '/login' with your actual login route
+
+      // Optionally show a snackbar to indicate successful logout
+      Get.snackbar(
+        "Logged Out",
+        "You have been logged out successfully.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+    } catch (e) {
+      // Handle any errors during logout
+      Get.snackbar(
+        "Error",
+        "Failed to log out. Please try again.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
+
 }
