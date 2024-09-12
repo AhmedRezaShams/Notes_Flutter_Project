@@ -1,5 +1,6 @@
 // lib/routes.dart
 import 'package:go_router/go_router.dart';
+import 'package:notes/views/home_page.dart';
 import 'package:notes/views/login_page.dart';
 import 'package:notes/widgets/splash_screen.dart';
 import 'package:notes/views/index.dart';
@@ -24,6 +25,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/register',
       builder: (context, state) => RegisterScreen(), // Register page route
+    ),
+    GoRoute(
+      path: '/success_register',
+      builder: (context, state) => HomePage(), // Register page route
     ),
   ],
 );
