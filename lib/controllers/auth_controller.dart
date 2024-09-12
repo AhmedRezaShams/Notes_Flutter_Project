@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notes/main.dart';
 import 'package:notes/routes.dart';
 import 'package:notes/views/home_page.dart';
 
@@ -11,12 +13,12 @@ class AuthController extends GetxController {
   // Register new user
   Future<void> registerUser(BuildContext context, String email, String password) async {
     try {
-      context.push('/success_register');
-      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
 
+      final userCredential  = await FirebaseAuth.instance .createUserWithEmailAndPassword(
+          email: email,
+          password: password
+      );
+      context.push('/success_register');
 
       // Redirect to the home screen after registration
       Get.snackbar(
@@ -37,26 +39,26 @@ class AuthController extends GetxController {
   // Login user
   Future<void> loginUser(BuildContext context, String email, String password) async {
     try {
-
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance .signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       context.push('/success_register');
-      Get.snackbar(
-        "Success",
-        "Logged in successfully",
-        snackPosition: SnackPosition.BOTTOM,
-      );
     } on FirebaseAuthException catch (e) {
-      String message = e.message ?? "An error occurred";
-     print(message);
+      String errorMessage = e.message ?? "An error occurred";
+      Get.snackbar(
+        "Error",
+        errorMessage,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     }
   }
 
   // Logout user
   Future<void> logout() async {
     await auth.signOut();
-   // Get.offAllNamed('/');  // Redirect to login after logout
+
   }
 }
