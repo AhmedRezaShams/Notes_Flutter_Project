@@ -10,6 +10,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _splashController.navigateToHome(context);
     return Scaffold(
       backgroundColor: Colors.blue,
       body: Center(

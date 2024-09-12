@@ -1,20 +1,38 @@
 // lib/routes.dart
-
-import 'package:get/get_navigation/src/routes/get_route.dart';
-
+import 'package:go_router/go_router.dart';
+import 'package:notes/views/login_page.dart';
 import 'package:notes/widgets/splash_screen.dart';
 import 'package:notes/views/index.dart';
+import 'package:notes/views/registration_page.dart';
+import 'main.dart';
 
-
-class Routes {
-  static const String SPLASH = '/';
-  //static const LOGIN = '/';
-  static const SIGNUP = '1/signup';
-  static const String HOME = '/home';
-  static const ADD_NOTE = '/add-note';
-
-  static List<GetPage> routes = [
-    GetPage(name: SPLASH, page: () => SplashScreen()),
-    GetPage(name: HOME, page: () => HomeScreen()),
-  ];
-}
+final GoRouter router = GoRouter(
+  initialLocation: '/',
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => SplashScreen(), // splash page route
+    ),
+    GoRoute(
+      path: '/home',
+      builder: (context, state) => HomeScreen(), // home page route
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => LoginScreen(), // login page route
+    ),
+    GoRoute(
+      path: '/register',
+      builder: (context, state) => RegisterScreen(), // Register page route
+    ),
+  ],
+);
+// class Routes {
+//   static const String SPLASH = '/';
+//   static const String HOME = '/home';
+//
+//   static List<GetPage> routes = [
+//     GetPage(name: SPLASH, page: () => SplashScreen()),
+//     GetPage(name: HOME, page: () => HomeScreen()),
+//   ];
+// }

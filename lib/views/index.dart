@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:notes/controllers/splash_controller.dart';
 import 'package:notes/routes.dart';
 import 'package:notes/widgets/button.dart';
+import 'package:notes/views/login_page.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -47,7 +49,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Container(
                   child: CustomButton(text: 'Login', onPressed:(){
-
+                    context.push('/login');
                   }),
                 ),
                 SizedBox(width: 20), // Spacing between the two buttons
@@ -56,7 +58,7 @@ class HomeScreen extends StatelessWidget {
                 // Replace this Container with your custom button
                 Container(
                   child: CustomButton(text: 'Register', onPressed:(){
-
+                    context.push('/register');
                   }),
                 ),
               ],
