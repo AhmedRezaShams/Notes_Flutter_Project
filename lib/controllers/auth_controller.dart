@@ -44,14 +44,14 @@ class AuthController extends GetxController {
         password: password,
       );
       context.push('/success_register');
-    } on FirebaseAuthException catch (e) {
-      String errorMessage = e.message ?? "An error occurred";
-      Get.snackbar(
-        "Error",
-        errorMessage,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
+    } on  FirebaseAuthException catch (e) {
+      String errorMessage = e?.message.toString() ?? "An error occurred";
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            backgroundColor: Colors.red,
+            duration: Duration(seconds: 5), // Optional: Set duration for the snackbar
+          ),
       );
     }
   }

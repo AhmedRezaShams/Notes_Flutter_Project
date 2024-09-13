@@ -1,38 +1,51 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:notes/models/note_model.dart';
 
-class NoteController extends GetxController {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  RxList<NoteModel> notes = RxList<NoteModel>();
+class NotesController extends GetxController {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  @override
-  void onInit() {
-    super.onInit();
-    fetchNotes();
-  }
+  // Collection reference
+  CollectionReference notes = FirebaseFirestore.instance.collection('notes');
 
-  void fetchNotes() {
-    _firestore.collection('notes').snapshots().listen((event) {
-      notes.value = event.docs.map((doc) => NoteModel.fromJson(doc.data())).toList();
-    });
-  }
-
+  // Method to add a new note (CREATE)
   Future<void> addNote(String title, String content) async {
-    await _firestore.collection('notes').add({
-      'title': title,
-      'content': content,
-    });
+    try {
+      await notes.add({
+        'title': title,
+        'content': content,
+        'createdAt': Timestamp.now(),
+      });
+      Get.snackbar('Success', 'Note added successfully');
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to add note');
+    }
   }
 
-  Future<void> updateNote(String id, String title, String content) async {
-    await _firestore.collection('notes').doc(id).update({
-      'title': title,
-      'content': content,
-    });
+  // Method to fetch all notes (READ)
+  Stream<QuerySnapshot> getNotes() {
+    return notes.orderBy('createdAt', descending: true).snapshots();
   }
 
-  Future<void> deleteNote(String id) async {
-    await _firestore.collection('notes').doc(id).delete();
+  // Method to update a note (UPDATE)
+  Future<void> updateNote(String noteId, String title, String content) async {
+    try {
+      await notes.doc(noteId).update({
+        'title': title,
+        'content': content,
+      });
+      Get.snackbar('Success', 'Note updated successfully');
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to update note');
+    }
+  }
+
+  // Method to delete a note (DELETE)
+  Future<void> deleteNote(String noteId) async {
+    try {
+      await notes.doc(noteId).delete();
+      Get.snackbar('Success', 'Note deleted successfully');
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to delete note');
+    }
   }
 }
