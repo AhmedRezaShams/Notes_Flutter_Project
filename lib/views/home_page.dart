@@ -170,7 +170,7 @@ class HomePage extends StatelessWidget {
               ),
               TextField(
                 controller: contentController,
-                decoration: InputDecoration(labelText: 'Content'),
+                decoration: InputDecoration(labelText: 'Description'),
               ),
             ],
           ),

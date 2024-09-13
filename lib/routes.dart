@@ -1,8 +1,8 @@
-// lib/routes.dart
+
 import 'package:go_router/go_router.dart';
 import 'package:notes/views/home_page.dart';
 import 'package:notes/views/login_page.dart';
-import 'package:notes/widgets/splash_screen.dart';
+import 'package:notes/views/splash_screen.dart';
 import 'package:notes/views/index.dart';
 import 'package:notes/views/registration_page.dart';
 import 'main.dart';

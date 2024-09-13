@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NotesController extends GetxController {
@@ -15,7 +16,7 @@ class NotesController extends GetxController {
         'content': content,
         'createdAt': Timestamp.now(),
       });
-      Get.snackbar('Success', 'Note added successfully');
+
     } catch (e) {
       Get.snackbar('Error', 'Failed to add note');
     }
