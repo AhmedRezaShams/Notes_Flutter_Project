@@ -58,28 +58,32 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:notes/controllers/notes_controller.dart';
 
+import '../controllers/auth_controller.dart';
+import '../widgets/button.dart';
+
 class HomePage extends StatelessWidget {
   final NotesController notesController = Get.put(NotesController());
-
+  final AuthController authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text('Welcome to Notes',
-          style: TextStyle(
-            color: Colors.indigo
-          ),
-          ),
+        title: Text('Welcome to Notes',
+        style: TextStyle(
+          color: Colors.indigo
         ),
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.add),
-        //     onPressed: () {
-        //       _showNoteDialog(context, null);  // Show dialog to add a new note
-        //     },
-        //   ),
-        // ],
+        ),
+        actions: [
+        Padding(
+            padding: EdgeInsets.all(5.0),
+            child: CustomButton(text: 'Logout', onPressed: (){
+             authController.logout(context);
+
+            }
+            ),
+        )
+        ],
+        automaticallyImplyLeading: false,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: notesController.getNotes(),
@@ -96,25 +100,34 @@ class HomePage extends StatelessWidget {
             itemCount: notes.length,
             itemBuilder: (context, index) {
               var note = notes[index];
-              return ListTile(
-                title: Text(note['title']),
-                subtitle: Text(note['content']),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {
-                        _showNoteDialog(context, note);  // Show dialog to edit note
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        notesController.deleteNote(note.id);  // Delete note
-                      },
-                    ),
-                  ],
+              return Padding(
+                padding: const EdgeInsets.only(
+                  left: 5,
+                  right: 5,
+                  top: 5
+                ),
+                child: ListTile(
+                  title: Text(note['title']),
+                  subtitle: Text(note['content']),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.edit,
+                        color: Colors.indigoAccent,),
+                        onPressed: () {
+                          _showNoteDialog(context, note);  // Show dialog to edit note
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete,
+                        color: Colors.red,),
+                        onPressed: () {
+                          notesController.deleteNote(note.id);  // Delete note
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               );
             },

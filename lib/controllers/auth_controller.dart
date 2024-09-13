@@ -19,19 +19,21 @@ class AuthController extends GetxController {
           password: password
       );
       context.push('/success_register');
-
-      // Redirect to the home screen after registration
-      Get.snackbar(
-        "Success",
-        "Registration successful!",
-        snackPosition: SnackPosition.BOTTOM,
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Succesfully register'),
+          backgroundColor: Colors.indigo,
+          duration: Duration(seconds: 3), // Optional: Set duration for the snackbar
+        ),
       );
     } on FirebaseAuthException catch (e) {
-      String message = e.message ?? "An error occurred";
-      Get.snackbar(
-        "Error",
-        message,
-        snackPosition: SnackPosition.BOTTOM,
+      String message = "An error occurred";
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 3), // Optional: Set duration for the snackbar
+        ),
       );
     }
   }
@@ -44,8 +46,15 @@ class AuthController extends GetxController {
         password: password,
       );
       context.push('/success_register');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Welcome to notes'),
+          backgroundColor: Colors.indigo,
+          duration: Duration(seconds: 3), // Optional: Set duration for the snackbar
+        ),
+      );
     } on  FirebaseAuthException catch (e) {
-      String errorMessage = e?.message.toString() ?? "An error occurred";
+      String errorMessage = "Email id or password is incorrect";
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(errorMessage),
@@ -65,12 +74,12 @@ class AuthController extends GetxController {
       context.go('/home'); // Replace '/login' with your actual login route
 
       // Optionally show a snackbar to indicate successful logout
-      Get.snackbar(
-        "Logged Out",
-        "You have been logged out successfully.",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Successfully Loged Out!'),
+          backgroundColor: Colors.indigo,
+          duration: Duration(seconds: 3), // Optional: Set duration for the snackbar
+        ),
       );
     } catch (e) {
       // Handle any errors during logout

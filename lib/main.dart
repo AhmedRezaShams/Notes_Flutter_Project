@@ -17,14 +17,17 @@ void main() async{
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return GetMaterialApp.router(
       debugShowCheckedModeBanner: false,
       // initialRoute: '/',
       // getPages: [
       //   GetPage(name: '/', page: () => SplashScreen()),
       //   GetPage(name: '/home', page: () => HomeScreen()),
       // ],
-      routerConfig: router,
+      //routerConfig: router,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+      routeInformationProvider: router.routeInformationProvider,
       //routerDelegate: router.routerDelegate,
       //routeInformationParser: router.routeInformationParser,
       // initial: Routes.SPLASH, // Use the named route
